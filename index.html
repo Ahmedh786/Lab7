@@ -154,28 +154,25 @@
 
 
         var execButton = document.getElementById("execute");      
-        execButton.addEventListener("click", createRec);
-        function createRec() {
-          var authorName = document.getElementById("author").value;
-          var titleName = document.getElementById("title").value;
-          fetch(endpnt, { 
-          method: 'POST', 
-          body: JSON.stringify({ title: titleName, author: authorName}), 
-          headers: { "Content-type": "application/json; charset=UTF-8" } }) 
-          .then(response => {
-            if (!response.ok) {
-              throw Error(response.statusText);
-            }
-            else {
-            //  response.json();
-            }
-          })
-          .catch((error) => {
-            console.log(error.message);
-            var out = document.getElementById("output");
-            out.value = error.message;
-          }); 
-        }
+        var authorName = document.getElementById("author").value;
+        var titleName = document.getElementById("title").value;
+        fetch(endpnt, { 
+        method: 'POST', 
+        body: JSON.stringify({ title: titleName, author: authorName}), 
+        headers: { "Content-type": "application/json; charset=UTF-8" } }) 
+        .then(response => {
+          if (!response.ok) {
+            throw Error(response.statusText);
+          }
+          else {
+          //  response.json();
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+          var out = document.getElementById("output");
+          out.value = error.message;
+        }); 
       }
 
       catch (error) {
@@ -195,32 +192,29 @@
         document.getElementById("recordIDcontainer").style.display = "inline";
 
         var execButton = document.getElementById("execute");      
-        execButton.addEventListener("click", updateRec);
-        function updateRec() {
-          var authorName = document.getElementById("author").value;
-          var titleName = document.getElementById("title").value;
-          var idNumber = document.getElementById("recordID").value;
-          var endpnt = document.getElementById("endpoint").value + "/" + idNumber;
-          console.log(endpnt);
-          fetch(endpnt, { 
-            method: 'PUT', 
-            body: JSON.stringify({ title: titleName, author: authorName}), 
-            headers: { "Content-type": "application/json; charset=UTF-8" } }) 
-            .then(response => {
-              if (!response.ok) {
-                throw Error(response.statusText);
-              }
-              else {
-                response.json();
-              }
-            })
-            .catch((error) => {
-              console.log(error.message);
-              var out = document.getElementById("output");
-              out.value = error.message;
-            }); 
+        var authorName = document.getElementById("author").value;
+        var titleName = document.getElementById("title").value;
+        var idNumber = document.getElementById("recordID").value;
+        var endpnt = document.getElementById("endpoint").value + "/" + idNumber;
+        console.log(endpnt);
+        fetch(endpnt, { 
+          method: 'PUT', 
+          body: JSON.stringify({ title: titleName, author: authorName}), 
+          headers: { "Content-type": "application/json; charset=UTF-8" } }) 
+          .then(response => {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            else {
+              response.json();
+            }
+          })
+          .catch((error) => {
+            console.log(error.message);
+            var out = document.getElementById("output");
+            out.value = error.message;
+          }); 
         }
-      }
 
       catch (error) {
         var out = document.getElementById("output");
@@ -269,7 +263,8 @@
         .addEventListener("submit", event => {
           event.preventDefault();
           let command = document.getElementById('action').value;
-
+          var out = document.getElementById("output")
+          out.value = ""
           switch (command) {
             case "List All":
               fetchAll();
