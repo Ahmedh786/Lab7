@@ -293,7 +293,8 @@
         .addEventListener("submit", event => {
           event.preventDefault();
           let command = document.getElementById('action').value;
-
+          var out = document.getElementById("output")
+          out.value = ""
           switch (command) {
             case "Create":
               createRecord('submit');
